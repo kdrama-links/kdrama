@@ -223,7 +223,7 @@ const LiveConversation: React.FC = () => {
       if (speakerStatus === 'ai') return "Kdrama Links Support is speaking...";
       return "Listening...";
     }
-    return "Press the button to talk about K-dramas!";
+    return "Press the button to talk with AI";
   };
 
   const getIndicatorClasses = () => {
