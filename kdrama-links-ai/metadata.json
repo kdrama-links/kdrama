@@ -1,7 +1,0 @@
-{
-  "name": "Kdrama Links AI",
-  "description": "Your funny AI companion for all things K-drama and Korean movies, from the Kdrama Links Team.",
-  "requestFramePermissions": [
-    "microphone"
-  ]
-}
