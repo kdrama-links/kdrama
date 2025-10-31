@@ -15,7 +15,7 @@ const App: React.FC = () => {
         <LiveConversation />
       </main>
       <footer className="mt-8 text-center text-gray-500 text-sm">
-        <p>Your AI companion for all things K-drama</p>
+        <p>Developed by Kdrama links <span class="right badge badge-white">Total used:1673</span></p>
       </footer>
     </div>
   );
