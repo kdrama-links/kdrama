@@ -57,7 +57,7 @@ const ContactWidget: React.FC = () => {
           }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-            <span style={{ fontWeight: 700, color: '#F06292', fontSize: 18 }}>Contact Us</span>
+            <span style={{ fontWeight: 700, color: '#F06292', fontSize: 18 }}>Feedback</span>
             <button
               onClick={() => setOpen(false)}
               style={{
@@ -98,7 +98,7 @@ const ContactWidget: React.FC = () => {
                   fontSize: 14,
                 }}
               />
-              <label style={{ fontWeight: 500, fontSize: 15 }}>Email:</label>
+              <label style={{ fontWeight: 500, fontSize: 15 }}>Email or Telegram username</label>
               <input
                 name="email"
                 type="email"
@@ -142,7 +142,7 @@ const ContactWidget: React.FC = () => {
                     fontWeight: 600,
                   }}
                 >
-                  Send Message
+                  Send Feedback
                 </button>
               )}
             </form>
