@@ -1,5 +1,6 @@
 import React from 'react';
 import LiveConversation from './components/LiveConversation';
+import ContactWidget from './ContactWidget';
 
 const App: React.FC = () => {
   return (
@@ -18,6 +19,7 @@ const App: React.FC = () => {
         <p>Developed by Kdrama links Team</p>
         <p>Total used:2,806</p>
       </footer>
+      <ContactWidget />
     </div>
   );
 };
