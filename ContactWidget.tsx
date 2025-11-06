@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-// Simple inline chat bubble SVG icon
+// Inline SVG chat icon (matching your theme)
 const ChatIcon: React.FC = () => (
   <svg width="32" height="32" fill="none" aria-hidden="true" viewBox="0 0 48 48">
     <circle fill="#fff" cx="24" cy="24" r="24" />
@@ -10,16 +10,24 @@ const ChatIcon: React.FC = () => (
 
 const ContactWidget: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [fields, setFields] = useState({ name: '', email: '', message: '' });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFields({ ...fields, [e.target.name]: e.target.value });
+  };
+
+  const allFilled = fields.name.trim() && fields.email.trim() && fields.message.trim();
 
   return (
     <>
-      {/* Chat Icon Button */}
+      {/* The fixed chat float icon */}
       <button
         aria-label="Open contact form"
-        onClick={() => setOpen(!open)}
+        onClick={() => setOpen((v) => !v)}
         style={{
           position: 'fixed',
-          left: 24,
+          right: 24,
           bottom: 24,
           zIndex: 9999,
           border: 'none',
@@ -30,34 +38,34 @@ const ContactWidget: React.FC = () => {
       >
         <ChatIcon />
       </button>
-
-      {/* Floating Contact Form */}
+      {/* The floating small contact window */}
       {open && (
         <div
           style={{
             position: 'fixed',
-            left: 24,
-            bottom: 72,
+            right: 24,
+            bottom: 74, // 24 + 50px space for floating above button
             zIndex: 10000,
             background: '#fff',
             borderRadius: 16,
             boxShadow: '0 6px 32px 0 rgba(0,0,0,0.18)',
-            width: 330,
+            width: 340,
             maxWidth: '95vw',
             padding: 20,
             transition: 'all 0.2s',
+            fontFamily: 'Arial,sans-serif',
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-            <div style={{ fontWeight: 600, color: '#F06292' }}>Contact Us</div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+            <span style={{ fontWeight: 700, color: '#F06292', fontSize: 18 }}>Contact Us</span>
             <button
               onClick={() => setOpen(false)}
               style={{
                 background: 'none',
                 border: 'none',
-                fontSize: 20,
+                fontSize: 22,
                 cursor: 'pointer',
-                color: '#555',
+                color: '#999',
                 padding: 0,
                 lineHeight: 1,
               }}
@@ -66,65 +74,86 @@ const ContactWidget: React.FC = () => {
               ×
             </button>
           </div>
-          <form
-            method="POST"
-            action="/"
-            style={{ display: 'flex', flexDirection: 'column', gap: 10 }}
-          >
-            <label style={{ fontWeight: 500, fontSize: 15 }}>Name:</label>
-            <input
-              name="name"
-              type="text"
-              required
-              style={{
-                borderRadius: 6,
-                border: '1px solid #ccc',
-                padding: 8,
-                fontSize: 14,
-              }}
-            />
-            <label style={{ fontWeight: 500, fontSize: 15 }}>Email:</label>
-            <input
-              name="email"
-              type="email"
-              required
-              style={{
-                borderRadius: 6,
-                border: '1px solid #ccc',
-                padding: 8,
-                fontSize: 14,
-              }}
-            />
-            <label style={{ fontWeight: 500, fontSize: 15 }}>Message:</label>
-            <textarea
-              name="message"
-              required
-              rows={4}
-              style={{
-                borderRadius: 6,
-                border: '1px solid #ccc',
-                padding: 8,
-                fontSize: 14,
-                resize: 'vertical',
-              }}
-            />
-            <button
-              type="submit"
-              style={{
-                marginTop: 10,
-                background: '#F06292',
-                color: '#fff',
-                border: 'none',
-                borderRadius: 6,
-                fontSize: 15,
-                padding: '10px 0',
-                cursor: 'pointer',
-                fontWeight: 600,
+          {!submitted ? (
+            <form
+              action="/"
+              method="POST"
+              autoComplete="off"
+              style={{ display: 'flex', flexDirection: 'column', gap: 10 }}
+              onSubmit={e => {
+                setSubmitted(true);
               }}
             >
-              Send Message
-            </button>
-          </form>
+              <label style={{ fontWeight: 500, fontSize: 15 }}>Name:</label>
+              <input
+                name="name"
+                type="text"
+                required
+                value={fields.name}
+                onChange={handleChange}
+                style={{
+                  borderRadius: 6,
+                  border: '1px solid #ccc',
+                  padding: 8,
+                  fontSize: 14,
+                }}
+              />
+              <label style={{ fontWeight: 500, fontSize: 15 }}>Email:</label>
+              <input
+                name="email"
+                type="email"
+                required
+                value={fields.email}
+                onChange={handleChange}
+                style={{
+                  borderRadius: 6,
+                  border: '1px solid #ccc',
+                  padding: 8,
+                  fontSize: 14,
+                }}
+              />
+              <label style={{ fontWeight: 500, fontSize: 15 }}>Message:</label>
+              <textarea
+                name="message"
+                required
+                value={fields.message}
+                onChange={handleChange}
+                rows={4}
+                style={{
+                  borderRadius: 6,
+                  border: '1px solid #ccc',
+                  padding: 8,
+                  fontSize: 14,
+                  resize: 'vertical',
+                }}
+              />
+              {allFilled && (
+                <button
+                  type="submit"
+                  style={{
+                    marginTop: 10,
+                    background: '#F06292',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: 6,
+                    fontSize: 15,
+                    padding: '10px 0',
+                    cursor: 'pointer',
+                    fontWeight: 600,
+                  }}
+                >
+                  Send Message
+                </button>
+              )}
+            </form>
+          ) : (
+            <div style={{ textAlign: 'center', padding: '32px 0 16px' }}>
+              <h2 style={{ color: '#F06292', fontWeight: 700, marginBottom: 8 }}>
+                Thank You!
+              </h2>
+              <p style={{ color: '#333', margin: 0, fontSize: 15 }}>Your message has been sent,<br />you will get a reply in 24–48 hours.</p>
+            </div>
+          )}
         </div>
       )}
     </>
