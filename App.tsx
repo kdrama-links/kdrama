@@ -17,7 +17,7 @@ const App: React.FC = () => {
       </main>
       <footer className="mt-8 text-center text-gray-500 text-sm">
         <p>Developed by Kdrama links Team</p>
-        <p>Total used:2,806</p>
+        <p>Total used:16,756</p>
       </footer>
       <ContactWidget />
     </div>
